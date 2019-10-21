@@ -2,11 +2,12 @@
 #define BOOK_H
 #include <string>
 #include <iostream>
-#include "PriorityQueue.hpp"
+#include "PriorityQueue.h"
+#include <vector>
 #include "Date.h"
+#include "Employee.h"
 
-#include "Library.hpp"
-
+class Library;
 class Book {
   public:
     Book(std::string name, Library* library);
