@@ -5,8 +5,6 @@
 #include <vector>
 #include <algorithm>
 
-#define NDEBUG
-
 using namespace std;
 
 bool cmp(QueueNode &a, QueueNode &b) {

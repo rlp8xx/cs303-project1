@@ -6,8 +6,6 @@
 #include <vector>
 #include <algorithm>
 
-#define NDEBUG
-
 class PriorityQueue {
   public:
     PriorityQueue();

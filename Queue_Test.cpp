@@ -1,9 +1,8 @@
-#include "Queue.hpp"
+#include "PriorityQueue.h"
 
 #include <iostream>
 #include <string>
 
-#define NDEBUG
 #include <cassert>
 
 using namespace std;
