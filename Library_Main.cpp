@@ -1,4 +1,5 @@
 #include <iostream>
+#define NDEBUG
 #include "Date.h"
 #include "Library.h"
 

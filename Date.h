@@ -11,6 +11,10 @@ class Date {
       days = epoch_days;
     }
 
+    int get_days() {
+      return days;
+    }
+
     friend int operator-(Date &d1, Date &d2) {
       return d1.days - d2.days;
     }

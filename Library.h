@@ -30,6 +30,6 @@ class Library {
 
   private:
     vector<Employee> employees;
-    vector<Book> books;
+    vector<Book*> books;
 };
 #endif

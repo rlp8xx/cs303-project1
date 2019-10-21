@@ -6,11 +6,13 @@
 #include <vector>
 #include "Date.h"
 #include "Employee.h"
+#define NDEBUG
 
 class Library;
 class Book {
   public:
     Book(std::string name, Library* library);
+    ~Book();
 
     // update queue with new priorities
     void update_employees(const vector<Employee> employees);
@@ -41,6 +43,6 @@ class Book {
     Date circ_start;
     Date circ_end;
     bool archived;
-    PriorityQueue employee_circ;
+    PriorityQueue* employee_circ;
 }; 
 #endif

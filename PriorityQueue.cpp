@@ -64,3 +64,7 @@ void PriorityQueue::modify_priority(string target, int new_priority) {
 bool PriorityQueue::empty() {
   return heap_vec.empty();
 }
+
+int PriorityQueue::size() {
+  return heap_vec.size();
+}

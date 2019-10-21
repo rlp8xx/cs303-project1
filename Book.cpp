@@ -14,6 +14,11 @@ Book::Book(string name, Library* library) {
   this->library = library;
   this->circ_start = Date(0);
   this->circ_end = Date(0);
+  this->employee_circ = new PriorityQueue();
+}
+
+Book::~Book() {
+  delete this->employee_circ;
 }
 
 string Book::get_name() {
@@ -24,33 +29,41 @@ string Book::get_name() {
 void Book::update_employees(const vector<Employee> employees) {
   // iterate through employees and update each priority
   for (Employee e : employees) {
-    employee_circ.modify_priority(e.get_name(), e.get_priority());
+    employee_circ->modify_priority(e.get_name(), e.get_priority());
   }
 }
 
 void Book::add_employee(Employee employee) {
-  employee_circ.push(employee.get_name(), employee.get_priority());
+  #ifndef NDEBUG
+  cout << "Book::add_employee: Adding " << employee.get_name() << endl;
+  #endif
+  employee_circ->push(employee.get_name(), employee.get_priority());
+  #ifndef NDEBUG
+  cout << "Book::add_employee: employee_circ length is now ";
+  cout << employee_circ->size() << endl;
+  #endif
 }
 
 // pass on the book at date
 // returns name of employee to whom the book is passed or "" if archived
 string Book::pass_on(Date date) {
-  // if employee passing on book is last in queue, archive book
-  // retaining time for employee passing book gets adjusted
-  //    date - circ_end
-  // waiting time for employee receiving book gets adjusted
-  //    date - circ_start
-  // set circ_end to date
-  
-  if (employee_circ.empty()) {
+  #ifndef NDEBUG
+  cout << "Book::pass_on: Passing on boot" << endl;
+  #endif
+  if (employee_circ->empty()) {
+    #ifndef NDEBUG
+    cout << "Book::pass_on: employee_circ is empty. Archiving." << endl;
+    #endif
     library->add_retaining(holder, date - circ_end);
     circ_end = date;
     archived = true;
     return "";
   }
-
+  // circ_end gets set to the most recent pass on date
+  // use it to find retaining time
   library->add_retaining(holder, date - circ_end);
-  holder = employee_circ.pop();
+  holder = employee_circ->pop();
+  // find waiting time by subtracting circulation start from pass on date
   library->add_waiting(holder, date - circ_start);
   circ_end = date;
   return holder;
@@ -63,7 +76,8 @@ string Book::circulate(Date date) {
   // set holder to top of queue person
   // update 
   circ_start = date;
-  holder = employee_circ.pop();
+  circ_end = date;
+  holder = employee_circ->pop();
   return holder;
 }
 

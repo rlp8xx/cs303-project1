@@ -33,6 +33,8 @@ class PriorityQueue {
     // O(1)
     bool empty();
 
+    int size();
+
   private:
     std::vector<QueueNode> heap_vec;
 };
