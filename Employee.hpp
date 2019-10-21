@@ -2,26 +2,27 @@
 
 using namespace std;
 
-class Book {
+class Employee {
   public:
-    Book(string name) {
-      this->name = name;
+    int get_priority() {
+      return waiting_time - retaining_time;
+    }
+  
+    void add_waiting(int days) {
+      this->waiting_time += days;
+    }
+
+    void add_retaining(int days) {
+      this->retaining_time += days;
     }
 
     string get_name() {
-      return this->name;
-    }
-
-    int get_days_waiting() {
-      return this->days_waiting;
-    }
-
-    int get_days_retaining() {
-      return this->days_retaining;
+      return name;
     }
 
   private:
     string name;
-    int days_waiting = 0;
-    int days_retaining = 0;
+    // days spent waiting and days spent retaining
+    int waiting_time;
+    int retaining_time;
 };
