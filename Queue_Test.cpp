@@ -9,48 +9,88 @@
 using namespace std;
 
 void test1() {
-  cout << "Test 1" << endl;
-  MyQueue<string>* q = new MyQueue<string>();
-	string test = "test string";
-	cout << "Adding " << test << endl;
-	q->add_item(&test);
-	string test2 = "test string 2";
-	cout << "Adding " << test2 << endl;
-	q->add_item(&test2);
-  string test3 = "test string 3";
-  cout << "Adding " << test3 << endl;
-  q->add_item(&test3);
-
-  string* first = q->pop();
-  string* second = q->pop();
-  string* third = q->pop();
-	cout << "Top item: " << *first << endl;
-  assert(*first == test);
-	cout << "Top-1 item: " << *second << endl;
-  assert(*second == test2);
-  cout << "Top-2 item: " << *third << endl;
-  assert(*third == test3);
-  cout << "Test 1 complete." << endl << endl;
+  PriorityQueue pq;
+  string test1 = "test1";
+  string test2 = "test2";
+  string empty = "";
+  pq.push(test1, 1);
+  pq.push(test2, 2);
+  string first = pq.pop();
+  string second = pq.pop();
+  assert(first == test2);
+  assert(second == test1);
+  assert(pq.pop() == empty);
 }
 
 void test2() {
-  cout << "Test 2" << endl;
-  MyQueue<string>* q = new MyQueue<string>();
-  string test = "asdf 1234";
-  q->add_item(&test);
-  q->pop();
-  cout << "Pushed and then popped test string" << endl;
-  q->pop();
-  cout << "Popped on empty queue" << endl;
-  q->add_item(&test);
-  cout << "Added test string again" << endl;
-  string* should_be_test = q->pop();
-  cout << "Popped test string" << endl;
-  assert(*should_be_test == test);
-  cout << "Test 2 complete." << endl << endl;
+  PriorityQueue pq;
+  string test1 = "test1";
+  string test2 = "test2";
+  string test3 = "test3";
+  string empty = "";
+  pq.push(test1, 1);
+  pq.push(test2, 2);
+  pq.pop();
+  pq.push(test3, 3);
+  string first = pq.pop();
+  string second = pq.pop();
+  string third = pq.pop();
+  assert(first == test3);
+  assert(second == test1);
+  assert(third == empty);
 }
 
+void test3() {
+  PriorityQueue pq;
+  string test1 = "test1";
+  string test2 = "test2";
+  string empty = "";
+  pq.push(test1, 1);
+  pq.push(test2, 2);
+  pq.modify_priority(test1, 3);
+  string first = pq.pop();
+  string second = pq.pop();
+  assert(first == test1);
+  assert(second == test2);
+  assert(pq.pop() == empty);
+}
+
+void test4() {
+  PriorityQueue pq;
+  string test1 = "test1asdfkjasd";
+  string test2 = "test2d898fdyg";
+  string test3 = "test3u dsf88943th";
+  string test4 = "test4 fvfgji49403";
+  string test5 = "test5 dfD*(F";
+  string test6 = "test6 DF*(Y";
+  pq.push(test3,3);
+  pq.push(test6,6);
+  pq.push(test1,1);
+  pq.push(test4,4);
+  pq.push(test5,5);
+  pq.push(test2,2);
+  pq.modify_priority(test3, 8);
+  pq.modify_priority(test1, 9);
+  assert(pq.pop() == test1);
+  assert(pq.pop() == test3);
+  assert(pq.pop() == test6);
+  assert(pq.pop() == test5);
+  assert(pq.pop() == test4);
+  assert(pq.pop() == test2);
+}
+
+
 int main() {
+  cout << "Running test1" << endl;
   test1();
+  cout << "Test 1 complete" << endl;
+  cout << "Running test2" << endl;
   test2();
+  cout << "Test2 complete" << endl;
+  cout << "Running test3" << endl;
+  test3();
+  cout << "Test3 complete" << endl;
+  cout << "Running test4" << endl;
+  test4();
+  cout << "Test4 complete" << endl;
 }
