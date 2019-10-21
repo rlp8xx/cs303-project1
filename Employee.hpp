@@ -4,6 +4,10 @@ using namespace std;
 
 class Employee {
   public:
+    Employee (string name) {
+      this->name = name;
+    }
+
     int get_priority() {
       return waiting_time - retaining_time;
     }
